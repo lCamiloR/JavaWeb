@@ -7,7 +7,7 @@ import crudweblivraria.model.EntidadeDominio;
 
 public interface IDAO {
 	
-	public boolean insert(EntidadeDominio ent) throws SQLException;
+	public boolean inserir(EntidadeDominio ent) throws SQLException;
 
 	public List<EntidadeDominio> listarTodos() throws SQLException;
 	

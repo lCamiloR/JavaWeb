@@ -10,9 +10,9 @@
 <body>
     <h1>Gerenciamento de Livros</h1>
     <h2>
-        <a href="/new">Adicionar novo livro</a>
+        <a href="/CrudWebLivraria/new">Adicionar novo livro</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/list">Listar todos os livros</a>
+        <a href="/CrudWebLivraria/list">Listar todos os livros</a>
          
     </h2>
     <div align="center">
@@ -29,19 +29,20 @@
                 <th>Preço</th>
                 <th>Ações</th>
             </tr>
-            <c:forEach var="livro" items="${listBook}">
+            <c:forEach var="livro" items="${listaLivros}">
                 <tr>
                     <td><c:out value="${livro.id}" /></td>
                     <td><c:out value="${livro.isbn}" /></td>
+                    <td><c:out value="${livro.titulo}" /></td>
                     <td><c:out value="${livro.autor}" /></td>
                     <td><c:out value="${livro.editora}" /></td>
                     <td><c:out value="${livro.edicao}" /></td>
                     <td><c:out value="${livro.dtLancamento}" /></td>
                     <td><c:out value="${livro.preco}" /></td>
                     <td>
-                        <a href="/edit?id=<c:out value='${book.id}' />">Edit</a>
+                        <a href="/CrudWebLivraria/edit?id=<c:out value='${livro.id}' />">Edit</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="/delete?id=<c:out value='${book.id}' />">Delete</a>                     
+                        <a href="/CrudWebLivraria/delete?id=<c:out value='${livro.id}' />">Delete</a>                     
                     </td>
                 </tr>
             </c:forEach>

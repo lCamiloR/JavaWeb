@@ -27,7 +27,7 @@ public class LivroDAO extends DAO implements IDAO {
         this.jdbcPassword = jdbcPassword;
     }
      
-    public boolean insert(EntidadeDominio ent) throws SQLException {
+    public boolean inserir(EntidadeDominio ent) throws SQLException {
     	Livro livro = (Livro) ent;
         String sql = "INSERT INTO cwl_livros (liv_titulo, liv_autor, liv_editora, liv_edicao, "
         		+ "liv_dt_lancamento, liv_preco, liv_isbn) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -83,7 +83,7 @@ public class LivroDAO extends DAO implements IDAO {
      
     public boolean deletar(EntidadeDominio ent) throws SQLException {
     	Livro livro = (Livro) ent;
-        String sql = "DELETE FROM livro where livro_id = ?";
+        String sql = "DELETE FROM cwl_livros where liv_id = ?";
          
         connect();
          
@@ -120,7 +120,7 @@ public class LivroDAO extends DAO implements IDAO {
      
     public EntidadeDominio getEntidade(int id) throws SQLException {
         Livro livro = null;
-        String sql = "SELECT * FROM book WHERE liv_id = ?";
+        String sql = "SELECT * FROM cwl_livros WHERE liv_id = ?";
          
         connect();
          

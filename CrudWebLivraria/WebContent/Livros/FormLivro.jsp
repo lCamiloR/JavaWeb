@@ -9,9 +9,9 @@
 <body>
     <h1>Gerenciamento de Livros</h1>
     <h2>
-        <a href="/new">Adicionar novo livro</a>
+        <a href="/CrudWebLivraria//new">Adicionar novo livro</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="/list">Listar todos os livros</a>
+        <a href="/CrudWebLivraria//list">Listar todos os livros</a>
          
     </h2>
     <div align="center">

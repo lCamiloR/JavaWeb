@@ -2,6 +2,7 @@ package crudweblivraria.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
  
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import crudweblivraria.dao.LivroDAO;
 import crudweblivraria.interfaces.IDAO;
 import crudweblivraria.model.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class LivrosController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -39,85 +43,92 @@ public class LivrosController extends HttpServlet {
         try {
             switch (action) {
             case "/new":
-                showNewForm(request, response);
+            	mostrarFormCadastro(request, response);
                 break;
             case "/insert":
-                insertBook(request, response);
+            	cadastrar(request, response);
                 break;
             case "/delete":
-                deleteBook(request, response);
+                deletar(request, response);
                 break;
             case "/edit":
-                showEditForm(request, response);
+            	mostrarFormEditar(request, response);
                 break;
             case "/update":
-                updateBook(request, response);
+            	atualizar(request, response);
                 break;
             default:
-                listBook(request, response);
+            	listarEntidades(request, response);
                 break;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             throw new ServletException(ex);
         }
     }
  
-    private void listBook(HttpServletRequest request, HttpServletResponse response)
+    private void listarEntidades(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<EntidadeDominio> livros = livroDAO.listarTodos();
         request.setAttribute("listaLivros", livros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ListaLivros.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/ListaLivros.jsp");
         dispatcher.forward(request, response);
     }
  
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+    private void mostrarFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("BookForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/FormLivro.jsp");
         dispatcher.forward(request, response);
     }
  
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+    private void mostrarFormEditar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Book existingBook = bookDAO.getBook(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("BookForm.jsp");
-        request.setAttribute("book", existingBook);
+        Livro livroAtual = (Livro) livroDAO.getEntidade(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/FormLivro.jsp");
+        request.setAttribute("livro", livroAtual);
         dispatcher.forward(request, response);
  
     }
  
-    private void insertBook(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        float price = Float.parseFloat(request.getParameter("price"));
+    private void cadastrar(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ParseException {
+        String isbn = request.getParameter("isbn");
+        String titulo = request.getParameter("titulo");
+        String autor = request.getParameter("autor");
+        String editora = request.getParameter("editora");
+        int edicao = Integer.parseInt(request.getParameter("edicao"));
+        Date data = new SimpleDateFormat("yyyy/mm/dd").parse(request.getParameter("dtLancamento"));
+        double preco = Double.parseDouble(request.getParameter("preco"));
  
-        Book newBook = new Book(title, author, price);
-        bookDAO.insertBook(newBook);
+        Livro novoLivro = new Livro(isbn, titulo, autor, editora, edicao, data, preco);
+        livroDAO.inserir(novoLivro);
         response.sendRedirect("list");
     }
  
-    private void updateBook(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+    private void atualizar(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        float price = Float.parseFloat(request.getParameter("price"));
+        String isbn = request.getParameter("isbn");
+        String titulo = request.getParameter("titulo");
+        String autor = request.getParameter("autor");
+        String editora = request.getParameter("editora");
+        int edicao = Integer.parseInt(request.getParameter("edicao"));
+        Date data = new SimpleDateFormat("yyyy/mm/dd").parse(request.getParameter("dtLancamento"));
+        double preco = Double.parseDouble(request.getParameter("preco"));
  
-        Book book = new Book(id, title, author, price);
-        bookDAO.updateBook(book);
-        response.sendRedirect("list");
-    }
- 
-    private void deleteBook(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
- 
-        Book book = new Book(id);
-        bookDAO.deleteBook(book);
-        response.sendRedirect("list");
- 
-    }
-}
+        Livro livro = new Livro(id, isbn, titulo, autor, editora, edicao, data, preco);
 
+        livroDAO.atualizar(livro);
+        response.sendRedirect("list");
+    }
+ 
+    private void deletar(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+ 
+        Livro livro = new Livro(id);
+        livroDAO.deletar(livro);
+        response.sendRedirect("list");
+ 
+    }
 }
