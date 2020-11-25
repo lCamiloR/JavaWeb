@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import crudweblivraria.interfaces.IFacadeCRUD;
 
-@WebServlet("/vendas")
+@WebServlet(urlPatterns = {"/Vendas", "/Vendas/new", "/Vendas/insert", "/Vendas/delete", "/Vendas/update",
+		"/Vendas/list", "/Vendas/edit"})
 public class VendasController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IFacadeCRUD facade;
@@ -26,19 +27,19 @@ public class VendasController extends HttpServlet {
 		 
         try {
             switch (action) {
-            case "/new":
+            case "/Vendas/new":
             	facade.mostrarFormCadastro(request, response);
                 break;
-            case "/insert":
+            case "/Vendas/insert":
             	facade.cadastrar(request, response);
                 break;
-            case "/delete":
+            case "/Vendas/delete":
             	facade.deletar(request, response);
                 break;
-            case "/edit":
+            case "/Vendas/edit":
             	facade.mostrarFormEditar(request, response);
                 break;
-            case "/update":
+            case "/Vendas/update":
             	facade.atualizar(request, response);
                 break;
             default:

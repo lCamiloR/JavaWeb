@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import crudweblivraria.dao.FuncionarioDAO;
 import crudweblivraria.interfaces.IFacadeCRUD;
 
-@WebServlet("/funcionarios/")
+@WebServlet(urlPatterns = {"/Funcionarios", "/Funcionarios/new", "/Funcionarios/insert", "/Funcionarios/delete", 
+		"/Funcionarios/update", "/Funcionarios/list", "/Funcionarios/edit"})
 public class FuncionariosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private IFacadeCRUD facade;
@@ -27,19 +28,19 @@ public class FuncionariosController extends HttpServlet {
 		 
         try {
             switch (action) {
-            case "/new":
+            case "/Funcionarios/new":
             	facade.mostrarFormCadastro(request, response);
                 break;
-            case "/insert":
+            case "/Funcionarios/insert":
             	facade.cadastrar(request, response);
                 break;
-            case "/delete":
+            case "/Funcionarios/delete":
             	facade.deletar(request, response);
                 break;
-            case "/edit":
+            case "/Funcionarios/edit":
             	facade.mostrarFormEditar(request, response);
                 break;
-            case "/update":
+            case "/Funcionarios/update":
             	facade.atualizar(request, response);
                 break;
             default:

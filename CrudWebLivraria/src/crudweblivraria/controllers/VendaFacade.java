@@ -28,7 +28,7 @@ public class VendaFacade implements IFacadeCRUD {
 			throws SQLException, IOException, ServletException {
 		List<EntidadeDominio> vendas = dao.consultar();
         request.setAttribute("listaVendas", vendas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Vendas/ListaVendas.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vendas/ListaVendas.jsp");
         dispatcher.forward(request, response);
 	}
 
@@ -52,7 +52,7 @@ public class VendaFacade implements IFacadeCRUD {
 		request.setAttribute("funcionarios", funcionarios);
 		request.setAttribute("livros", livros);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/FormVendas.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Vendas/FormVendas.jsp");
         dispatcher.forward(request, response);
 	}
 
@@ -74,7 +74,7 @@ public class VendaFacade implements IFacadeCRUD {
 		request.setAttribute("funcionarios", funcionarios);
 		request.setAttribute("livros", livros);
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/FormVendas.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vendas/FormVendas.jsp");
         request.setAttribute("venda", vendaAtual);
         dispatcher.forward(request, response);
 	}

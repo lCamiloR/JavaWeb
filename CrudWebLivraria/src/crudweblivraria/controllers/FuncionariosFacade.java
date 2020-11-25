@@ -28,14 +28,14 @@ public class FuncionariosFacade implements IFacadeCRUD {
 			throws SQLException, IOException, ServletException {
 		List<EntidadeDominio> funcionarios = dao.consultar();
         request.setAttribute("listaFuncionarios", funcionarios);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Funcionarios/ListaFuncionarios.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Funcionarios/ListaFuncionarios.jsp");
         dispatcher.forward(request, response);
 	}
 
 	@Override
 	public void mostrarFormCadastro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Funcionarios/FormFuncionarios.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Funcionarios/FormFuncionarios.jsp");
         dispatcher.forward(request, response);
 	}
 
@@ -44,7 +44,7 @@ public class FuncionariosFacade implements IFacadeCRUD {
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
         Funcionario funcionarioAtual = (Funcionario) dao.consultar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Funcionarios/FormFuncionarios.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Funcionarios/FormFuncionarios.jsp");
         request.setAttribute("funcionario", funcionarioAtual);
         dispatcher.forward(request, response);
 	}

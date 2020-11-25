@@ -104,8 +104,8 @@ public class FuncionarioDAO implements IDAO {
 		this.jdbcConnection = ConnectionFactory.getConnection();
         
     	Funcionario funcionario = (Funcionario) ent;
-        String sql = "UPDATE cwl_funcionarios SET fnc_nome = ?, fnc_cpf = ?, fnc_matricula = ?,"
-        		+ "fnc_salario = ?";
+        String sql = "UPDATE cwl_funcionarios SET fnc_nome = ?, fnc_cpf = ?, fnc_matricula = ?, "
+        		+ "fnc_salario = ? ";
         sql += " WHERE fnc_id = ?";
         
         PreparedStatement statement = null;

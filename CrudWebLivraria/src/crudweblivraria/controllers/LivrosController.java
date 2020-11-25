@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import crudweblivraria.dao.LivroDAO;
-import crudweblivraria.interfaces.IFacadeCRUD;
+import crudweblivraria.interfaces.*;
 
 import java.text.ParseException;
 
-@WebServlet("/livros")
+@WebServlet(urlPatterns = {"/Livros", "/Livros/new", "/Livros/insert", "/Livros/delete", "/Livros/update", "/Livros/list",
+		"/Livros/edit"})
 public class LivrosController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IFacadeCRUD facade;
@@ -33,22 +34,22 @@ public class LivrosController extends HttpServlet {
     	
     	
         String action = request.getServletPath();
- 
+        //response.getWriter().println(action);
         try {
             switch (action) {
-            case "/new":
+            case "/Livros/new":
             	facade.mostrarFormCadastro(request, response);
                 break;
-            case "/insert":
+            case "/Livros/insert":
             	facade.cadastrar(request, response);
                 break;
-            case "/delete":
+            case "/Livros/delete":
             	facade.deletar(request, response);
                 break;
-            case "/edit":
+            case "/Livros/edit":
             	facade.mostrarFormEditar(request, response);
                 break;
-            case "/update":
+            case "/Livros/update":
             	facade.atualizar(request, response);
                 break;
             default:

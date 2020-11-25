@@ -66,6 +66,7 @@ public class VendaDAO implements IDAO {
 		this.jdbcConnection = ConnectionFactory.getConnection();
         List<Venda> vendas = new ArrayList<>();
         List<EntidadeDominio> retorno = new ArrayList<>();
+        vendasLivrosDAO = new VendasLivrosDAO();
          
         String sql = "SELECT * "
         		+ " FROM cwl_vendas "
@@ -124,6 +125,7 @@ public class VendaDAO implements IDAO {
 		Venda venda = (Venda) ent;
         String sql = "DELETE FROM cwl_funcionarios where fnc_id = ?";
         boolean delecaoSucesso = false;
+        vendasLivrosDAO = new VendasLivrosDAO();
         
         this.jdbcConnection = ConnectionFactory.getConnection();
          
@@ -163,6 +165,7 @@ public class VendaDAO implements IDAO {
         String sql = "UPDATE cwl_vendas SET ven_valor_total = ?, ven_descontos = ?, "
         		+ "fk_funcionarios_vendas = ?,";
         sql += " WHERE ven_id = ?";
+        vendasLivrosDAO = new VendasLivrosDAO();
         
         PreparedStatement statement = null;
         
@@ -199,11 +202,12 @@ public class VendaDAO implements IDAO {
 	public EntidadeDominio consultar(int id) throws SQLException {
 		this.jdbcConnection = ConnectionFactory.getConnection();
 		Venda venda = new Venda();
+		vendasLivrosDAO = new VendasLivrosDAO();
          
         String sql = "SELECT *"
-        		+ "FROM cwl_vendas"
-        		+ "INNER JOIN cwl_funcionarios"
-        		+ "ON cwl_vendas.fk_funcionarios_vendas = cwl_funcionarios.fnc_id"
+        		+ "FROM cwl_vendas "
+        		+ "INNER JOIN cwl_funcionarios "
+        		+ "ON cwl_vendas.fk_funcionarios_vendas = cwl_funcionarios.fnc_id "
         		+ "WHERE cwl_vendas = ?";
          
         PreparedStatement statement = null;

@@ -49,7 +49,7 @@ public class VendasLivrosDAO{
 
 	public boolean deletar(EntidadeDominio ent) throws SQLException {
 		Venda venda = (Venda) ent;
-        String sql = "DELETE FROM cwl_vendas_livros where fk_vendas = ?";
+        String sql = "DELETE FROM cwl_vendas_livros where fk_vendas = ? ";
          
         this.jdbcConnection = ConnectionFactory.getConnection();
          
@@ -76,7 +76,7 @@ public class VendasLivrosDAO{
 		this.jdbcConnection = ConnectionFactory.getConnection();
         
     	Venda venda = (Venda) ent;
-        String sql = "UPDATE cwl_vendas_livros SET vpl_quantia_livros = ?";
+        String sql = "UPDATE cwl_vendas_livros SET vpl_quantia_livros = ? ";
         sql += " WHERE fk_vendas = ?, fk_livros = ?";
         
         PreparedStatement statement = null;

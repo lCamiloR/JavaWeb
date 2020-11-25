@@ -28,14 +28,14 @@ public class LivroFacade implements IFacadeCRUD {
             throws SQLException, IOException, ServletException {
         List<EntidadeDominio> livros = dao.consultar();
         request.setAttribute("listaLivros", livros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/ListaLivros.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Livros/ListaLivros.jsp");
         dispatcher.forward(request, response);
     }
 	
 	@Override
 	public void mostrarFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/FormLivro.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Livros/FormLivro.jsp");
         dispatcher.forward(request, response);
     }
 	
@@ -44,7 +44,7 @@ public class LivroFacade implements IFacadeCRUD {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Livro livroAtual = (Livro) dao.consultar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Livros/FormLivro.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Livros/FormLivro.jsp");
         request.setAttribute("livro", livroAtual);
         dispatcher.forward(request, response);
  
@@ -58,7 +58,7 @@ public class LivroFacade implements IFacadeCRUD {
         String autor = request.getParameter("autor");
         String editora = request.getParameter("editora");
         int edicao = Integer.parseInt(request.getParameter("edicao"));
-        Date data = new SimpleDateFormat("yyyy/mm/dd").parse(request.getParameter("dtLancamento"));
+        Date data = new SimpleDateFormat("yyyy-mm-dd").parse(request.getParameter("dtLancamento"));
         double preco = Double.parseDouble(request.getParameter("preco"));
  
         Livro novoLivro = new Livro(isbn, titulo, autor, editora, edicao, data, preco);

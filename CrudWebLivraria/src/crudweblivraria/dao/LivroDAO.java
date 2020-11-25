@@ -57,7 +57,7 @@ public class LivroDAO implements IDAO {
         Livro livro = new Livro();
         try {
         	statement = jdbcConnection.prepareStatement(sql);
-        	resultSet = statement.executeQuery();
+        	resultSet = statement.executeQuery(sql);
         	
 	        while (resultSet.next()) {
 	        	livro.setId( resultSet.getInt("liv_id") );
@@ -70,6 +70,7 @@ public class LivroDAO implements IDAO {
 	            livro.setPreco( resultSet.getDouble("liv_preco") );
 	            
 	            livros.add(livro);
+	            return livros;
 	        }
         }catch(SQLException ex) {
             System.out.println("Não foi possível consultar os dados no banco de dados.\nErro: " + ex.getMessage());
@@ -77,7 +78,7 @@ public class LivroDAO implements IDAO {
         	ConnectionFactory.closeConnection(jdbcConnection, statement, resultSet);
         }
         
-        return (ArrayList<EntidadeDominio>)livros;
+        return null;
     }
     
     @Override
@@ -112,8 +113,8 @@ public class LivroDAO implements IDAO {
     	this.jdbcConnection = ConnectionFactory.getConnection();
         
     	Livro livro = (Livro) ent;
-        String sql = "UPDATE cwl_livros SET liv_titulo = ?, liv_autor = ?, liv_editora = ?,"
-        		+ "liv_edicao = ?, liv_dt_lancamento = ?, liv_preco = ?, liv_isbn = ?";
+        String sql = "UPDATE cwl_livros SET liv_titulo = ?, liv_autor = ?, liv_editora = ?, "
+        		+ "liv_edicao = ?, liv_dt_lancamento = ?, liv_preco = ?, liv_isbn = ? ";
         sql += " WHERE liv_id = ?";
         
         PreparedStatement statement = null;

@@ -69,7 +69,9 @@ public class Venda extends EntidadeDominio {
 	}
 
 	public void setValorTotal() {
+		
 		valorTotal = 0;
+		if (livros == null) return;
 		Iterator it = livros.entrySet().iterator();
 		while(it.hasNext()) {
 			Map.Entry<Livro, Integer> entrada = (Map.Entry<Livro, Integer>) it.next();
