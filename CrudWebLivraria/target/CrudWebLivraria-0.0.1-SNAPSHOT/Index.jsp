@@ -11,15 +11,15 @@
     <h2>
         <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Livros/list">Listar todos os livros</a>
+        <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
         &nbsp;&nbsp;
         <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Funcionarios/list">Listar todos os funcionarios</a>
+        <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
         &nbsp;&nbsp;
         <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Vendas/list">Listar todos os venda</a>
+        <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
         &nbsp;&nbsp;
 </body>
 </html>
