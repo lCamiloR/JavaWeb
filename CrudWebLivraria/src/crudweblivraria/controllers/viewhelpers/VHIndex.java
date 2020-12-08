@@ -19,7 +19,7 @@ public class VHIndex implements IViewHelper {
 	public void setView(Object resultado, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Index.jsp");
         try{
         	dispatcher.forward(request, response);
         }catch(Exception ex) {

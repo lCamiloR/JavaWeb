@@ -14,13 +14,15 @@ import crudweblivraria.controllers.commands.*;
 import crudweblivraria.controllers.viewhelpers.*;
 import crudweblivraria.model.domain.EntidadeDominio;
 
-@WebServlet("/")
+@WebServlet("/crud/")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String op = null;
 	private static Map<String, ICommand> cmds;
 	private static Map<String, IViewHelper> vhs;
-       
+    private static String urlPrefix = "/CrudWebLivraria/crud/";
+	
+	
     public Controller() {
         super();
         
@@ -34,31 +36,31 @@ public class Controller extends HttpServlet {
         cmds.put(null, cmds.get("list"));
         
         vhs = new HashMap<String, IViewHelper>();
-        vhs.put("/CrudWebLivraria/Livros?operacao=insert", new VHSalvarLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios?operacao=insert", new VHSalvarFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas?operacao=insert", new VHSalvarVenda());
-        vhs.put("/CrudWebLivraria/Livros?operacao=list", new VHListarLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios?operacao=list", new VHListarFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas?operacao=list", new VHListarVenda());
-        vhs.put("/CrudWebLivraria/Livros?operacao=delete", new VHDeletarLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios?operacao=delete", new VHDeletarFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas?operacao=delete", new VHDeletarVenda());
-        vhs.put("/CrudWebLivraria/Livros?operacao=update", new VHEditarLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios?operacao=update", new VHEditarFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas?operacao=update", new VHEditarVenda());
-        vhs.put("/CrudWebLivraria/Livros?operacao=new", new VHFormLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios?operacao=new", new VHFormFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas?operacao=new", new VHFormVenda());
-        vhs.put("/CrudWebLivraria/Livros?operacao=edit", new VHFormLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios?operacao=edit", new VHFormFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas?operacao=edit", new VHFormVenda());
-        vhs.put("/CrudWebLivraria/Livros/", new VHListarLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios/", new VHListarFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas/", new VHListarVenda());
-        vhs.put("/CrudWebLivraria/Livros", new VHListarLivro());
-        vhs.put("/CrudWebLivraria/Funcionarios", new VHListarFuncionario());
-        vhs.put("/CrudWebLivraria/Vendas", new VHListarVenda());
-        vhs.put("/CrudWebLivraria/", new VHIndex());
+        vhs.put(urlPrefix + "Livros?operacao=insert", new VHSalvarLivro());
+        vhs.put(urlPrefix + "Funcionarios?operacao=insert", new VHSalvarFuncionario());
+        vhs.put(urlPrefix + "Vendas?operacao=insert", new VHSalvarVenda());
+        vhs.put(urlPrefix + "Livros?operacao=list", new VHListarLivro());
+        vhs.put(urlPrefix + "Funcionarios?operacao=list", new VHListarFuncionario());
+        vhs.put(urlPrefix + "Vendas?operacao=list", new VHListarVenda());
+        vhs.put(urlPrefix + "Livros?operacao=delete", new VHDeletarLivro());
+        vhs.put(urlPrefix + "Funcionarios?operacao=delete", new VHDeletarFuncionario());
+        vhs.put(urlPrefix + "Vendas?operacao=delete", new VHDeletarVenda());
+        vhs.put(urlPrefix + "Livros?operacao=update", new VHEditarLivro());
+        vhs.put(urlPrefix + "Funcionarios?operacao=update", new VHEditarFuncionario());
+        vhs.put(urlPrefix + "Vendas?operacao=update", new VHEditarVenda());
+        vhs.put(urlPrefix + "Livros?operacao=new", new VHFormLivro());
+        vhs.put(urlPrefix + "Funcionarios?operacao=new", new VHFormFuncionario());
+        vhs.put(urlPrefix + "Vendas?operacao=new", new VHFormVenda());
+        vhs.put(urlPrefix + "Livros?operacao=edit", new VHFormLivro());
+        vhs.put(urlPrefix + "Funcionarios?operacao=edit", new VHFormFuncionario());
+        vhs.put(urlPrefix + "Vendas?operacao=edit", new VHFormVenda());
+        vhs.put(urlPrefix + "Livros/", new VHListarLivro());
+        vhs.put(urlPrefix + "Funcionarios/", new VHListarFuncionario());
+        vhs.put(urlPrefix + "Vendas/", new VHListarVenda());
+        vhs.put(urlPrefix + "Livros", new VHListarLivro());
+        vhs.put(urlPrefix + "Funcionarios", new VHListarFuncionario());
+        vhs.put(urlPrefix + "Vendas", new VHListarVenda());
+        vhs.put(urlPrefix, new VHIndex());
         vhs.put(null, new VHIndex());
     }
 
@@ -69,8 +71,10 @@ public class Controller extends HttpServlet {
 		StringBuilder vhKeyBuilder = new StringBuilder();
 		vhKeyBuilder.append(request.getRequestURI());
 		if(op != null) {
-			vhKeyBuilder.append("?operacao=");
-			vhKeyBuilder.append(op);
+			if(!op.equals("")) {
+				vhKeyBuilder.append("?operacao=");
+				vhKeyBuilder.append(op);
+			}
 		}
 		
 		

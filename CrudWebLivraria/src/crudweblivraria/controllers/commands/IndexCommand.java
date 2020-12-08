@@ -7,8 +7,7 @@ public class IndexCommand extends AbstractCommand implements ICommand {
 
 	@Override
 	public Object execute(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }
