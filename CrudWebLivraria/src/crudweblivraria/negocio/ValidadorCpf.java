@@ -21,7 +21,7 @@ public class ValidadorCpf implements IValidador {
 		
 		try {
 			@SuppressWarnings("unused")
-			int n = Integer.parseInt(campo);
+			int i = Integer.parseInt(campo);
 		}catch(NumberFormatException nfe) {
 			return "CPF tem de ser númerico.\n";
 		}

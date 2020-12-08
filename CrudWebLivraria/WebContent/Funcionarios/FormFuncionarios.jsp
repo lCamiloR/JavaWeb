@@ -33,11 +33,9 @@
             <form action="/CrudWebLivraria/crud/Funcionarios?operacao=insert" method="post">
         </c:if>
         
-        <c:if test="${msgErro != null} ">
-          	<caption>
-          		<c:out value='${msgErro}' />
-           	</caption>
-        </c:if>
+        <h3>
+        	<c:out value='${msgErro}' />
+        </h3>
         
         <table border="1">
             <caption>
@@ -63,7 +61,7 @@
             <tr>
                 <th>CPF: </th>
                 <td>
-                    <input type="text" id="cpf" name="cpf" size="45"
+                    <input type="number" id="cpf" name="cpf" size="45"
                             value="<c:out value='${funcionario.cpf}' />"
                     />
                 </td>
@@ -71,7 +69,7 @@
             <tr>
                 <th>Matricula: </th>
                 <td>
-                    <input type="text" id="matricula" name="matricula" size="5"
+                    <input type="number" id="matricula" name="matricula" size="5"
                             value="<c:out value='${funcionario.matricula}' />"
                     />
                 </td>
@@ -79,7 +77,7 @@
             <tr>
                 <th>Salario: </th>
                 <td>
-                    <input type="text"  id="salario" name="salario" size="5"
+                    <input type="number" step=0.01  id="salario" name="salario" size="5"
                             value="<c:out value='${funcionario.salario}' />"
                     />
                 </td>

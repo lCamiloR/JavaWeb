@@ -34,11 +34,9 @@
             <form action="/CrudWebLivraria/crud/Vendas?operacao=insert" method="post">
         </c:if>
         
-        <c:if test="${msgErro != null}">
-        	<caption>
-          		<c:out value='${msgErro}' />
-           </caption>
-        </c:if>
+        <h3>
+          	<c:out value='${msgErro}' />
+       </h3>
         
         <table border="1">
             <caption>
@@ -70,7 +68,7 @@
                 <td>
                     <input type="number" step=0.1 id="descontos" name="descontos" size="45"
                             value="<c:out value='${venda.descontos}' />"
-                        />
+                        />%
                 </td>
             </tr>
             <tr>
@@ -99,10 +97,10 @@
                 	<c:if test="${livros != null}">
                 		<c:if test="${funcionarios != null}">
                 			<c:if test="${venda == null}">
-                    			<input type="submit" id="operacao" name="operacao" value="insert" />
+                    			<input type="submit" id="operacao" name="operacao" value="Salvar" />
                    			</c:if>
                    			<c:if test="${venda != null}">
-                    			<input type="submit" id="operacao" name="operacao" value="update" />
+                    			<input type="submit" id="operacao" name="operacao" value="Atualizar" />
                    			</c:if>
                     	</c:if>
                     </c:if>
