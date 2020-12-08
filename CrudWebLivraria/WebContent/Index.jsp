@@ -9,29 +9,19 @@
 <title>Crud Web Livraria</title>
 </head>
 <body>
-    <div class="bg"></div>
-    <div>
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="#">Crud Web Livraria</a>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
-            </span>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
-            </span>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
-            </span>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
-            </span>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
-            </span>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
-            </span>
-        </nav>
-    </div>
+	<h1>Crud Web Livraria</h1>
+    <h2>
+        <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+        &nbsp;&nbsp;
 </body>
 </html>

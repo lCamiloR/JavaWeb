@@ -9,13 +9,14 @@ import javax.swing.JOptionPane;
 
 public class ConnectionFactory {
 
-	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/crud_web_livraria?serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASS = "";
+	private static String DRIVER;
+    private static String URL;
+    private static String USER;
+    private static String PASS;
     
-    public static Connection getConnection(){
-        try {
+    
+    private static Connection getConnection() {
+    	try {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASS);
         } catch (ClassNotFoundException ex) {
@@ -27,6 +28,15 @@ public class ConnectionFactory {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+    }
+    
+    public static Connection getMysqlConnection(){
+        DRIVER = "com.mysql.cj.jdbc.Driver";
+        URL = "jdbc:mysql://localhost:3306/crud_web_livraria?serverTimezone=UTC";
+        USER = "root";
+        PASS = "";
+        
+        return getConnection();
     }
     
     public static void closeConnection(Connection conn){

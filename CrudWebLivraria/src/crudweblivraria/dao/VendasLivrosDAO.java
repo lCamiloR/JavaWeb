@@ -11,12 +11,16 @@ import crudweblivraria.model.domain.*;
 
 public class VendasLivrosDAO{
 
+	//VendasLivrosDAO não implementa IDAO propositalmente, para evitar que seja instanciado separadamente, pois só deve ser instanciado
+	//quando VendasDAO for atualizado
+	
 	private Connection jdbcConnection;
 	private LivroDAO livroDAO;
 	
+	@SuppressWarnings({ "rawtypes" })
 	public boolean inserir(EntidadeDominio ent) throws SQLException {
 		
-		this.jdbcConnection = ConnectionFactory.getConnection();
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
     	Venda venda = (Venda) ent;
         String sql = "INSERT INTO cwl_vendas_livros (vpl_quantia_livros, fk_vendas, "
         		+ "fk_livros) VALUES (?, ?, ?)";
@@ -25,21 +29,22 @@ public class VendasLivrosDAO{
         try {    
         	statement = jdbcConnection.prepareStatement(sql);
         	
-        	Iterator it = venda.getLivros().entrySet().iterator();
-        	while(it.hasNext()) {
-        		Map.Entry<Livro, Integer> entrada = (Map.Entry<Livro, Integer>) it.next();
-        		
-        		statement.setInt(1, entrada.getValue());
-        		statement.setInt(2, venda.getId());
-        		statement.setInt(3, entrada.getKey().getId());
-        		
-        		statement.addBatch();
+        	for(Map.Entry<Livro, Integer> entrada: venda.getLivros().entrySet()) {
+        		if(entrada.getKey() != null) {
+        			
+        			
+	        		statement.setInt(1, entrada.getValue());
+	        		statement.setInt(2, venda.getId());
+	        		statement.setInt(3, entrada.getKey().getId());
+	        		
+	        		statement.addBatch();
+        		}
         	}
         	
-	        statement.execute();
+	        statement.executeBatch();
             return true;
         } catch (SQLException ex) {
-            System.out.println("Não foi possível salvar os dados no banco de dados.\nErro: " + ex.getMessage());
+            System.out.println("Não foi possível salvar os dados no banco de dados, erro no DAOVendasLivros.\nErro: " + ex.getMessage());
         } finally {
             ConnectionFactory.closeConnection(jdbcConnection, statement);
         }
@@ -51,7 +56,7 @@ public class VendasLivrosDAO{
 		Venda venda = (Venda) ent;
         String sql = "DELETE FROM cwl_vendas_livros where fk_vendas = ? ";
          
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statement = null;
 
@@ -71,9 +76,10 @@ public class VendasLivrosDAO{
         return false;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean atualizar(EntidadeDominio ent) throws SQLException {
 		
-		this.jdbcConnection = ConnectionFactory.getConnection();
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         
     	Venda venda = (Venda) ent;
         String sql = "UPDATE cwl_vendas_livros SET vpl_quantia_livros = ? ";
@@ -107,6 +113,7 @@ public class VendasLivrosDAO{
         return false;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public EntidadeDominio consultar(int id) throws SQLException {
 		
 		Venda venda = new Venda();
@@ -115,7 +122,7 @@ public class VendasLivrosDAO{
 		livroDAO = new LivroDAO();
         String sql = "SELECT * FROM cwl_vendas_livros WHERE fk_vendas = ?";
          
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statement = null;
          
@@ -128,7 +135,7 @@ public class VendasLivrosDAO{
              
             resultSet = statement.executeQuery();
         	
-	        if (resultSet.next()) {
+	        while (resultSet.next()) {
 	        	int quantia = resultSet.getInt("vpl_quantia_livros");
 	        	int livroId = resultSet.getInt("fk_livros");
 	        	

@@ -2,9 +2,6 @@ package crudweblivraria.model.domain;
 
 import java.util.Date;
 
-import crudweblivraria.interfaces.IValidador;
-import crudweblivraria.model.ValidadorIsbn;
-
 public class Livro extends EntidadeDominio{
 
 	private int id;
@@ -16,10 +13,7 @@ public class Livro extends EntidadeDominio{
     private Date dtLancamento;
     private double preco;
     
-    private IValidador validadorIsbn;
-    
     public Livro() {
-    	validadorIsbn = new ValidadorIsbn();
     }
  
     public Livro(int id) {
@@ -105,10 +99,6 @@ public class Livro extends EntidadeDominio{
 
 	public void setPreco(double preco) {
 		this.preco = preco;
-	}
- 
-	public boolean validarIsbn() {
-		return validadorIsbn.validarCampo(isbn);
 	}
 
 }

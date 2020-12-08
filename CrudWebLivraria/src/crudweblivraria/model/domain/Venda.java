@@ -3,9 +3,6 @@ package crudweblivraria.model.domain;
 import java.util.Iterator;
 import java.util.Map;
 
-import crudweblivraria.interfaces.IValidador;
-import crudweblivraria.model.ValidadorDescontos;
-
 public class Venda extends EntidadeDominio {
 
 	protected int id;
@@ -13,12 +10,8 @@ public class Venda extends EntidadeDominio {
 	protected Map<Livro, Integer> livros;
 	protected double valorTotal;
 	protected double descontos;
-	protected IValidador validadorDescontos;
-	
-	
 	
 	public Venda() {
-		validadorDescontos = new ValidadorDescontos();
 	}
 	
 	public Venda(int id) {
@@ -35,7 +28,6 @@ public class Venda extends EntidadeDominio {
 		this();
 		this.funcionario = funcionario;
 		this.livros = livros;
-		this.setValorTotal();
 		this.descontos = descontos;
 	}
 
@@ -72,8 +64,10 @@ public class Venda extends EntidadeDominio {
 		
 		valorTotal = 0;
 		if (livros == null) return;
+		@SuppressWarnings("rawtypes")
 		Iterator it = livros.entrySet().iterator();
 		while(it.hasNext()) {
+			@SuppressWarnings("unchecked")
 			Map.Entry<Livro, Integer> entrada = (Map.Entry<Livro, Integer>) it.next();
 			valorTotal = entrada.getKey().getPreco() * entrada.getValue();
 		}
@@ -91,11 +85,7 @@ public class Venda extends EntidadeDominio {
 		if(this.getValorTotal()>=200) return descontos+=20;
 		return descontos;
 	}
-	
-	public boolean validarDescontos() {
-		return validadorDescontos.validarCampo(this.getDescontos() + "");
-	}
-	
+
 	public void addLivro(Livro livro, int quantia) {
 		livros.put(livro, quantia);
 	}

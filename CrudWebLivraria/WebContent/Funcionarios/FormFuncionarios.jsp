@@ -3,44 +3,43 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
     <link href="../css/mystyle.css" rel="stylesheet" type="text/css"/>
+<head>
     <title>CRUD Web Livraria</title>
 </head>
 <body>
     <h1>Gerenciamento de Funcionarios</h1>
-    <div>
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Crud Web Livraria</a>
-            <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
-            </span>
-            <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
-            </span>
-            <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
-            </span>
-            <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
-            </span>
-            <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
-            </span>
-            <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
-            </span>
-        </nav>
-    </div>
-    <div class="container centro">
+    <h2>
+        <a href="/CrudWebLivraria/Livros?operacao=new">Adicionar novo livro</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Funcionarios?operacao=new">Adicionar novo funcionario</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Vendas?operacao=new">Adicionar novo venda</a>
+        &nbsp;&nbsp;
+        <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+        &nbsp;&nbsp;
+         
+    </h2>
+    <div align="center">
         <c:if test="${funcionario != null}">
-            <form action="update" method="post">
+            <form action="/CrudWebLivraria/Funcionarios?operacao=update" method="post">
         </c:if>
         <c:if test="${funcionario == null}">
-            <form action="insert" method="post">
+            <form action="/CrudWebLivraria/Funcionarios?operacao=insert" method="post">
         </c:if>
-        <table class="table table-borderless">
+        
+        <c:if test="${msgErro} != null ">
+          	<caption>
+          		<c:out value='${msgErro}' />
+           	</caption>
+        </c:if>
+        
+        <table border="1">
             <caption>
                     <c:if test="${funcionario != null}">
                         Editar funcionario
@@ -49,6 +48,7 @@
                         Adicionar novo funcionario
                     </c:if>
             </caption>
+
                 <c:if test="${funcionario != null}">
                     <input type="hidden" name="id" value="<c:out value='${funcionario.id}' />" />
                 </c:if>           
@@ -86,7 +86,12 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" id="salvar" value="Salvar" />
+                <c:if test="${funcionario == null}">
+                    <input type="submit" id="operacao" name="operacao" value="Salvar" />
+                </c:if>
+                <c:if test="${funcionario != null}">
+                    <input type="submit" id="operacao" name="operacao" value="Editar" />
+                </c:if>
                 </td>
             </tr>
         </table>

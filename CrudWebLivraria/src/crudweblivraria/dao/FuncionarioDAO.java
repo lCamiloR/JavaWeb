@@ -14,9 +14,9 @@ public class FuncionarioDAO implements IDAO {
 	private Connection jdbcConnection;
     
     @Override
-    public boolean inserir(EntidadeDominio ent) throws SQLException {
+    public String inserir(EntidadeDominio ent) throws SQLException {
     	
-    	this.jdbcConnection = ConnectionFactory.getConnection();
+    	this.jdbcConnection = ConnectionFactory.getMysqlConnection();
     	Funcionario funcionario = (Funcionario) ent;
         String sql = "INSERT INTO cwl_funcionarios (fnc_nome, fnc_cpf, fnc_matricula, "
         		+ "fnc_salario) VALUES (?, ?, ?, ?)";
@@ -31,18 +31,18 @@ public class FuncionarioDAO implements IDAO {
 	        statement.setDouble(4, funcionario.getSalario());
 	         
 	        statement.execute();
-            return true;
+            return "";
         } catch (SQLException ex) {
             System.out.println("Não foi possível salvar os dados no banco de dados.\nErro: " + ex.getMessage());
         } finally {
             ConnectionFactory.closeConnection(jdbcConnection, statement);
         }
-        return false;
+        return "Não foi possível salvar os dados no banco de dados.";
     }
 
 	@Override
 	public List<EntidadeDominio> consultar() throws SQLException {
-    	this.jdbcConnection = ConnectionFactory.getConnection();
+    	this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         List<EntidadeDominio> funcionarios = new ArrayList<>();
          
         String sql = "SELECT * FROM cwl_funcionarios";
@@ -56,6 +56,8 @@ public class FuncionarioDAO implements IDAO {
         	resultSet = statement.executeQuery();
         	
 	        while (resultSet.next()) {
+	        	funcionario = new Funcionario();
+	        	
 	        	funcionario.setId( resultSet.getInt("fnc_id") );
 	        	funcionario.setNome( resultSet.getString("fnc_nome") );
 	        	funcionario.setCpf( resultSet.getString("fnc_cpf") );
@@ -78,7 +80,7 @@ public class FuncionarioDAO implements IDAO {
 		Funcionario funcionario = (Funcionario) ent;
         String sql = "DELETE FROM cwl_funcionarios where fnc_id = ?";
          
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statement = null;
 
@@ -99,9 +101,9 @@ public class FuncionarioDAO implements IDAO {
 	}
 
 	@Override
-	public boolean atualizar(EntidadeDominio ent) throws SQLException {
+	public String atualizar(EntidadeDominio ent) throws SQLException {
 		
-		this.jdbcConnection = ConnectionFactory.getConnection();
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         
     	Funcionario funcionario = (Funcionario) ent;
         String sql = "UPDATE cwl_funcionarios SET fnc_nome = ?, fnc_cpf = ?, fnc_matricula = ?, "
@@ -119,14 +121,14 @@ public class FuncionarioDAO implements IDAO {
 	        statement.setDouble(4, funcionario.getSalario());
 	         
 	        boolean rowUpdated = statement.executeUpdate() > 0;
-	        return rowUpdated;
+	        if(rowUpdated) return "";
         }catch(SQLException ex) {
             System.out.println("Não foi possível consultar os dados no banco de dados.\nErro: " + ex.getMessage());
         } finally {
         	ConnectionFactory.closeConnection(jdbcConnection, statement);
         }
         
-        return false;
+        return "Não foi possível salvar os dados no banco de dados.";
 	}
 
 	@Override
@@ -134,7 +136,7 @@ public class FuncionarioDAO implements IDAO {
 		Funcionario funcionario = new Funcionario();
         String sql = "SELECT * FROM cwl_funcionarios WHERE fnc_id = ?";
          
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statement = null;
          
@@ -148,6 +150,7 @@ public class FuncionarioDAO implements IDAO {
             resultSet = statement.executeQuery();
         	
 	        if (resultSet.next()) {
+	        	funcionario.setId(id);
 	        	funcionario.setNome( resultSet.getString("fnc_nome") );
 	        	funcionario.setCpf( resultSet.getString("fnc_cpf") );
 	        	funcionario.setMatricula( resultSet.getInt("fnc_matricula") );

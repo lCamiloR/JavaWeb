@@ -19,14 +19,18 @@ public class VendaDAO implements IDAO {
 	private VendasLivrosDAO vendasLivrosDAO;
 	
 	@Override
-	public boolean inserir(EntidadeDominio ent) throws SQLException {
+	public String inserir(EntidadeDominio ent) throws SQLException {
 		
-		this.jdbcConnection = ConnectionFactory.getConnection();
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
     	Venda venda = (Venda) ent;
         String sqlVendas = "INSERT INTO cwl_vendas (ven_valor_total, ven_descontos, "
         		+ "fk_funcionarios_vendas) VALUES (?, ?, ?);";
         PreparedStatement statementVendas = null;
         vendasLivrosDAO = new VendasLivrosDAO();
+        
+        for(Map.Entry<Livro, Integer> entrada: venda.getLivros().entrySet()) {
+        	System.out.println(entrada.getKey().getTitulo() + "");
+        }
         
         try {    
         	
@@ -52,18 +56,18 @@ public class VendaDAO implements IDAO {
         
         try {
         	vendasLivrosDAO.inserir(venda);
-        	return true;
+        	return "";
         }catch (SQLException ex){
         	System.out.println("Não foi possível salvar os dados no banco de dados.\nErro: " + ex.getMessage());
         }
         
-        return false;
+        return "Não foi possível salvar os dados no banco de dados.";
 	}
 
 	@Override
 	public List<EntidadeDominio> consultar() throws SQLException {
 		
-		this.jdbcConnection = ConnectionFactory.getConnection();
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         List<Venda> vendas = new ArrayList<>();
         List<EntidadeDominio> retorno = new ArrayList<>();
         vendasLivrosDAO = new VendasLivrosDAO();
@@ -98,7 +102,7 @@ public class VendaDAO implements IDAO {
 	        	vendas.add(venda);
         	}
         }catch(SQLException ex) {
-            System.out.println("Não foi possível consultar os dados no banco de dados.\nErro: " + ex.getMessage());
+            System.out.println("Não foi possível consultar os dados no banco de dados, erro no VendasDAO.\nErro: " + ex.getMessage());
         } finally {
         	ConnectionFactory.closeConnection(jdbcConnection, statement, resultSet);
         }
@@ -123,11 +127,11 @@ public class VendaDAO implements IDAO {
 	public boolean deletar(EntidadeDominio ent) throws SQLException {
 		
 		Venda venda = (Venda) ent;
-        String sql = "DELETE FROM cwl_funcionarios where fnc_id = ?";
+        String sql = "DELETE FROM cwl_vendas where ven_id = ?";
         boolean delecaoSucesso = false;
         vendasLivrosDAO = new VendasLivrosDAO();
         
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statementVendas = null;
 
@@ -158,8 +162,8 @@ public class VendaDAO implements IDAO {
 	}
 
 	@Override
-	public boolean atualizar(EntidadeDominio ent) throws SQLException {
-		this.jdbcConnection = ConnectionFactory.getConnection();
+	public String atualizar(EntidadeDominio ent) throws SQLException {
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         
     	Venda venda = (Venda) ent;
         String sql = "UPDATE cwl_vendas SET ven_valor_total = ?, ven_descontos = ?, "
@@ -189,18 +193,18 @@ public class VendaDAO implements IDAO {
         if(rowUpdated) {
 	        try {
 	        	vendasLivrosDAO.atualizar(venda);
-	        	return true;
+	        	return "";
 	        }catch (SQLException ex){
 	        	System.out.println("Não foi possível salvar os dados no banco de dados.\nErro: " + ex.getMessage());
 	        }
         }
         
-        return false;
+        return "Não foi possível salvar os dados no banco de dados.";
 	}
 
 	@Override
 	public EntidadeDominio consultar(int id) throws SQLException {
-		this.jdbcConnection = ConnectionFactory.getConnection();
+		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
 		Venda venda = new Venda();
 		vendasLivrosDAO = new VendasLivrosDAO();
          
@@ -208,20 +212,21 @@ public class VendaDAO implements IDAO {
         		+ "FROM cwl_vendas "
         		+ "INNER JOIN cwl_funcionarios "
         		+ "ON cwl_vendas.fk_funcionarios_vendas = cwl_funcionarios.fnc_id "
-        		+ "WHERE cwl_vendas = ?";
+        		+ "WHERE ven_id = ?";
          
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         
         try {
         	statement = jdbcConnection.prepareStatement(sql);
+        	
+        	statement.setInt(1, id);
         	resultSet = statement.executeQuery();
         	
         	venda.setId( resultSet.getInt("ven_id") );
         	venda.setDescontos( resultSet.getDouble("ven_descontos") );
         	
         	venda.setFuncionario(getFuncionario(resultSet));
-	        
         }catch(SQLException ex) {
             System.out.println("Não foi possível consultar os dados no banco de dados.\nErro: " + ex.getMessage());
         } finally {

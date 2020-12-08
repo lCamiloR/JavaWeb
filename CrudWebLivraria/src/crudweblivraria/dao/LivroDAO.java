@@ -14,9 +14,9 @@ public class LivroDAO implements IDAO {
     private Connection jdbcConnection;
     
     @Override
-    public boolean inserir(EntidadeDominio ent) throws SQLException {
+    public String inserir(EntidadeDominio ent) throws SQLException {
     	
-    	this.jdbcConnection = ConnectionFactory.getConnection();
+    	this.jdbcConnection = ConnectionFactory.getMysqlConnection();
     	Livro livro = (Livro) ent;
         String sql = "INSERT INTO cwl_livros (liv_titulo, liv_autor, liv_editora, liv_edicao, "
         		+ "liv_dt_lancamento, liv_preco, liv_isbn) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -34,19 +34,19 @@ public class LivroDAO implements IDAO {
 	        statement.setString(7, livro.getIsbn());
 	         
 	        statement.execute();
-            return true;
+            return "";
         } catch (SQLException ex) {
             System.out.println("Não foi possível salvar os dados no banco de dados.\nErro: " + ex.getMessage());
         } finally {
             ConnectionFactory.closeConnection(jdbcConnection, statement);
         }
-        return false;
+        return "Não foi possível salvar os dados no banco de dados.";
     }
     
     @Override
     public List<EntidadeDominio> consultar() throws SQLException{
     	
-    	this.jdbcConnection = ConnectionFactory.getConnection();
+    	this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         List<EntidadeDominio> livros = new ArrayList<>();
          
         String sql = "SELECT * FROM cwl_livros";
@@ -60,6 +60,8 @@ public class LivroDAO implements IDAO {
         	resultSet = statement.executeQuery(sql);
         	
 	        while (resultSet.next()) {
+	        	livro = new Livro();
+	        	
 	        	livro.setId( resultSet.getInt("liv_id") );
 	            livro.setIsbn( resultSet.getString("liv_isbn") );
 	            livro.setTitulo( resultSet.getString("liv_titulo") );
@@ -70,8 +72,8 @@ public class LivroDAO implements IDAO {
 	            livro.setPreco( resultSet.getDouble("liv_preco") );
 	            
 	            livros.add(livro);
-	            return livros;
 	        }
+            return livros;
         }catch(SQLException ex) {
             System.out.println("Não foi possível consultar os dados no banco de dados.\nErro: " + ex.getMessage());
         } finally {
@@ -86,7 +88,7 @@ public class LivroDAO implements IDAO {
     	Livro livro = (Livro) ent;
         String sql = "DELETE FROM cwl_livros where liv_id = ?";
          
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statement = null;
 
@@ -108,9 +110,9 @@ public class LivroDAO implements IDAO {
     }
     
     @Override
-    public boolean atualizar(EntidadeDominio ent) throws SQLException {
+    public String atualizar(EntidadeDominio ent) throws SQLException {
     	
-    	this.jdbcConnection = ConnectionFactory.getConnection();
+    	this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         
     	Livro livro = (Livro) ent;
         String sql = "UPDATE cwl_livros SET liv_titulo = ?, liv_autor = ?, liv_editora = ?, "
@@ -131,14 +133,14 @@ public class LivroDAO implements IDAO {
 	        statement.setInt(8, livro.getId());
 	         
 	        boolean rowUpdated = statement.executeUpdate() > 0;
-	        return rowUpdated;
+	        if(rowUpdated) return "";
         }catch(SQLException ex) {
             System.out.println("Não foi possível consultar os dados no banco de dados.\nErro: " + ex.getMessage());
         } finally {
         	ConnectionFactory.closeConnection(jdbcConnection, statement);
         }
         
-        return false;
+        return "Não foi possível salvar os dados no banco de dados.";
     }    
     
     @Override
@@ -146,7 +148,7 @@ public class LivroDAO implements IDAO {
         Livro livro = new Livro();
         String sql = "SELECT * FROM cwl_livros WHERE liv_id = ?";
          
-        this.jdbcConnection = ConnectionFactory.getConnection();
+        this.jdbcConnection = ConnectionFactory.getMysqlConnection();
          
         PreparedStatement statement = null;
          
@@ -160,6 +162,8 @@ public class LivroDAO implements IDAO {
             resultSet = statement.executeQuery();
         	
 	        if (resultSet.next()) {
+	        	livro = new Livro();
+	        	
 	        	livro.setId( resultSet.getInt("liv_id") );
 	            livro.setIsbn( resultSet.getString("liv_isbn") );
 	            livro.setTitulo( resultSet.getString("liv_titulo") );
