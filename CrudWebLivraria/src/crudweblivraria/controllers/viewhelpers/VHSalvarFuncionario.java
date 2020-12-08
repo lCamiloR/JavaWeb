@@ -29,7 +29,7 @@ public class VHSalvarFuncionario implements IViewHelper {
 		String msg = (String) resultado; 
 		if(msg.equals("")) {
 			try {
-				response.sendRedirect("/CrudWebLivraria/Funcionarios?operacao=list");
+				response.sendRedirect("/CrudWebLivraria/crud/Funcionarios?operacao=list");
 			}catch(Exception ex) {
 				System.out.println(ex);
 			}

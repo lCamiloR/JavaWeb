@@ -64,7 +64,7 @@ public class VHEditarVenda implements IViewHelper {
 		
 		if(msg.equals("")) {
 			try {
-				response.sendRedirect("/CrudWebLivraria/Vendas?operacao=list");
+				response.sendRedirect("/CrudWebLivraria/crud/Vendas?operacao=list");
 			}catch(Exception ex) {
 				System.out.println(ex);
 			}

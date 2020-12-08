@@ -14,7 +14,8 @@ import crudweblivraria.controllers.commands.*;
 import crudweblivraria.controllers.viewhelpers.*;
 import crudweblivraria.model.domain.EntidadeDominio;
 
-@WebServlet("/crud/")
+@WebServlet({"/crud/", "/crud/Livros", "/crud/Funcionarios", "/crud/Vendas",
+	"/crud/Livros/", "/crud/Funcionarios/", "/crud/Vendas/"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String op = null;
@@ -33,7 +34,7 @@ public class Controller extends HttpServlet {
         cmds.put("update", new AlterarCommand());
         cmds.put("new", new FormCommand());
         cmds.put("edit", new FormCommand());
-        cmds.put(null, cmds.get("list"));
+        cmds.put(null, new ListarCommand());
         
         vhs = new HashMap<String, IViewHelper>();
         vhs.put(urlPrefix + "Livros?operacao=insert", new VHSalvarLivro());

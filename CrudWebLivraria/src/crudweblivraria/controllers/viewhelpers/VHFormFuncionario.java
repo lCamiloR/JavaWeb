@@ -43,7 +43,7 @@ public class VHFormFuncionario implements IViewHelper {
 		
 		//Se for uma edicao a viewmodel retorna um EntidadeDominio nula, entao checa-se para nao passar algo nulo para a view
 		if (f != null) request.setAttribute("funcionario", f);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Funcionarios/FormFuncionarios.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Funcionarios/crud/FormFuncionarios.jsp");
 		
         try{
         	dispatcher.forward(request, response);
