@@ -44,9 +44,9 @@
                     <td><c:out value="${f.matricula}" /></td>
                     <td><c:out value="${f.salario}" /></td>
                     <td>
-                        <a href="/CrudWebLivraria/Funcionarios?operacao=edit&id=<c:out value='${f.id}' />">Editar</a>
+                        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=edit&id=<c:out value='${f.id}' />">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="/CrudWebLivraria/Funcionarios?operacao=delete&id=<c:out value='${f.id}' />">Deletar</a>                     
+                        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=delete&id=<c:out value='${f.id}' />">Deletar</a>                     
                     </td>
                 </tr>
             </c:forEach>

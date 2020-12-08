@@ -51,9 +51,9 @@
                     <td><c:out value="${livro.dtLancamento}" /></td>
                     <td><c:out value="${livro.preco}" /></td>
                     <td>
-                        <a href="/CrudWebLivraria/Livros?operacao=edit&id=<c:out value='${livro.id}' />">Editar</a>
+                        <a href="/CrudWebLivraria/crud/Livros?operacao=edit&id=<c:out value='${livro.id}' />">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="/CrudWebLivraria/Livros?operacao=delete&id=<c:out value='${livro.id}' />">Deletar</a>                     
+                        <a href="/CrudWebLivraria/crud/Livros?operacao=delete&id=<c:out value='${livro.id}' />">Deletar</a>                     
                     </td>
                 </tr>
             </c:forEach>
