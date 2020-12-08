@@ -34,7 +34,7 @@
             <form action="/CrudWebLivraria/Vendas?operacao=insert" method="post">
         </c:if>
         
-        <c:if test="${msgErro} != null ">
+        <c:if test="${msgErro != null}">
         	<caption>
           		<c:out value='${msgErro}' />
            </caption>

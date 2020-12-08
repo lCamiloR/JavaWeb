@@ -12,7 +12,7 @@ public class VHIndex implements IViewHelper {
 
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest request) {
-		return null;
+		return new EntidadeDominio();
 	}
 
 	@Override
