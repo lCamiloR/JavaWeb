@@ -27,10 +27,10 @@
     </h2>
     <div align="center">
         <c:if test="${funcionario != null}">
-            <form action="/CrudWebLivraria/Funcionarios?operacao=update" method="post">
+            <form action="/CrudWebLivraria/crud/Funcionarios?operacao=update" method="post">
         </c:if>
         <c:if test="${funcionario == null}">
-            <form action="/CrudWebLivraria/Funcionarios?operacao=insert" method="post">
+            <form action="/CrudWebLivraria/crud/Funcionarios?operacao=insert" method="post">
         </c:if>
         
         <c:if test="${msgErro != null} ">
