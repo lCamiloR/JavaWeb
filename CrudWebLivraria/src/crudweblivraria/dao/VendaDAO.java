@@ -27,10 +27,7 @@ public class VendaDAO implements IDAO {
         		+ "fk_funcionarios_vendas) VALUES (?, ?, ?);";
         PreparedStatement statementVendas = null;
         vendasLivrosDAO = new VendasLivrosDAO();
-        
-        for(Map.Entry<Livro, Integer> entrada: venda.getLivros().entrySet()) {
-        	System.out.println(entrada.getKey().getTitulo() + "");
-        }
+        venda.setValorTotal();
         
         try {    
         	
@@ -70,8 +67,8 @@ public class VendaDAO implements IDAO {
 		this.jdbcConnection = ConnectionFactory.getMysqlConnection();
         List<Venda> vendas = new ArrayList<>();
         List<EntidadeDominio> retorno = new ArrayList<>();
-        vendasLivrosDAO = new VendasLivrosDAO();
-         
+        vendasLivrosDAO = new VendasLivrosDAO(); 
+        
         String sql = "SELECT * "
         		+ " FROM cwl_vendas "
         		+ " INNER JOIN cwl_funcionarios "
@@ -170,6 +167,7 @@ public class VendaDAO implements IDAO {
         		+ "fk_funcionarios_vendas = ?,";
         sql += " WHERE ven_id = ?";
         vendasLivrosDAO = new VendasLivrosDAO();
+        venda.setValorTotal();
         
         PreparedStatement statement = null;
         

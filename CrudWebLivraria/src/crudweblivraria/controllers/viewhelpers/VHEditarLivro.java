@@ -46,7 +46,7 @@ public class VHEditarLivro implements IViewHelper {
 		
 		if(msg.equals("")){
 			try {
-				response.sendRedirect("/CrudWebLivraria/Livros?operacao=list");
+				response.sendRedirect("/CrudWebLivraria/crud/Livros?operacao=list");
 			}catch(Exception ex) {
 				System.out.println(ex);
 			}

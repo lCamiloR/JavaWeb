@@ -12,33 +12,31 @@
 <body>
     <h1>Gerenciamento de Venda</h1>
     <h2>
-        <a href="/CrudWebLivraria/Livros?operacao=new">Adicionar novo livro</a>
+        <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+        <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Funcionarios?operacao=new">Adicionar novo funcionario</a>
+        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+        <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Vendas?operacao=new">Adicionar novo venda</a>
+        <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+        <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
         &nbsp;&nbsp;
          
     </h2>
     <div align="center">
         <c:if test="${venda != null}">
-            <form action="/CrudWebLivraria/Vendas?operacao=update" method="post">
+            <form action="/CrudWebLivraria/crud/Vendas?operacao=update" method="post">
         </c:if>
         <c:if test="${venda == null}">
-            <form action="/CrudWebLivraria/Vendas?operacao=insert" method="post">
+            <form action="/CrudWebLivraria/crud/Vendas?operacao=insert" method="post">
         </c:if>
         
-        <c:if test="${msgErro} != null ">
-        	<caption>
-          		<c:out value='${msgErro}' />
-           </caption>
-        </c:if>
+        <h3>
+          	<c:out value='${msgErro}' />
+       </h3>
         
         <table border="1">
             <caption>
@@ -70,7 +68,7 @@
                 <td>
                     <input type="number" step=0.1 id="descontos" name="descontos" size="45"
                             value="<c:out value='${venda.descontos}' />"
-                        />
+                        />%
                 </td>
             </tr>
             <tr>
@@ -99,10 +97,10 @@
                 	<c:if test="${livros != null}">
                 		<c:if test="${funcionarios != null}">
                 			<c:if test="${venda == null}">
-                    			<input type="submit" id="operacao" name="operacao" value="insert" />
+                    			<input type="submit" id="operacao" name="operacao" value="Salvar" />
                    			</c:if>
                    			<c:if test="${venda != null}">
-                    			<input type="submit" id="operacao" name="operacao" value="update" />
+                    			<input type="submit" id="operacao" name="operacao" value="Atualizar" />
                    			</c:if>
                     	</c:if>
                     </c:if>

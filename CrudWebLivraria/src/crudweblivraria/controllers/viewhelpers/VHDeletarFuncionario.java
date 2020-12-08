@@ -22,7 +22,7 @@ public class VHDeletarFuncionario implements IViewHelper {
 	public void setView(Object resultado, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		try {
-			response.sendRedirect("/CrudWebLivraria/Funcionarios?operacao=list");
+			response.sendRedirect("/CrudWebLivraria/crud/Funcionarios?operacao=list");
 		}catch(Exception ex) {
 			System.out.println(ex);
 		}

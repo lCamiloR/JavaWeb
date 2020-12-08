@@ -22,7 +22,7 @@ public class VHDeletarLivro implements IViewHelper {
 	public void setView(Object resultado, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		try {
-			response.sendRedirect("/CrudWebLivraria/Livros?operacao=list");
+			response.sendRedirect("/CrudWebLivraria/crud/Livros?operacao=list");
 		}catch(Exception ex) {
 			System.out.println(ex);
 		}
