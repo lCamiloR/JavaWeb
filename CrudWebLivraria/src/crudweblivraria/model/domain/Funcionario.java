@@ -1,8 +1,5 @@
 package crudweblivraria.model.domain;
 
-import crudweblivraria.interfaces.IValidador;
-import crudweblivraria.model.ValidadorCpf;
-
 public class Funcionario extends EntidadeDominio{
 
 	private int id;
@@ -11,10 +8,7 @@ public class Funcionario extends EntidadeDominio{
 	private int matricula;
 	private double salario;
 	
-	private IValidador validadorCpf;
-	
 	public Funcionario() {
-		validadorCpf = new ValidadorCpf();
 	}
 	
 	public Funcionario(int id) {
@@ -73,10 +67,6 @@ public class Funcionario extends EntidadeDominio{
 
 	public void setSalario(double salario) {
 		this.salario = salario;
-	}
-	
-	public boolean validarCpf() {
-		return validadorCpf.validarCampo(cpf);
 	}
 
 }

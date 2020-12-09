@@ -1,31 +1,20 @@
 package crudweblivraria.interfaces;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
+import crudweblivraria.model.domain.EntidadeDominio;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+import java.util.List;
 
 public interface IFacadeCRUD {
 
-	public void listarEntidades(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException;
+	public List<EntidadeDominio> listarEntidades(EntidadeDominio e);
 	
-	public void mostrarFormCadastro(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException;
+	public String cadastrar(EntidadeDominio e);
 	
-	public void mostrarFormEditar(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, ServletException, IOException;
+	public String atualizar(EntidadeDominio e);
 	
-	public void cadastrar(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ParseException;
+	public boolean deletar(EntidadeDominio e);
 	
-	public void atualizar(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ParseException;
-	
-	public void deletar(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException;
+	public Map<String, List<EntidadeDominio>> mostrarForm(EntidadeDominio e);
 	
 }

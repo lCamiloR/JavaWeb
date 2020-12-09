@@ -15,47 +15,46 @@
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Crud Web Livraria</a>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
+                <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+                <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
+                <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+                <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar nova venda</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
             </span>
         </nav>
     </div>
     <div class="container centro">
         <table class="table table-hover table-bordered">
-            <caption>Lista de Livros</caption>
+            <caption>Lista de Funcionarios</caption>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
                 <th>CPF</th>
-                <th>Matrï¿½cula</th>
-                <th>Salï¿½rio</th>
-                <th>AÃ§Ãµes</th>
+                <th>Matrícula</th>
+                <th>Salário</th>
             </tr>
-            <c:forEach var="funcionario" items="${listaFuncionarios}">
+            <c:forEach var="f" items="${listaFuncionarios}">
                 <tr>
-                    <td><c:out value="${funcionario.id}" /></td>
-                    <td><c:out value="${funcionario.nome}" /></td>
-                    <td><c:out value="${funcionario.cpf}" /></td>
-                    <td><c:out value="${funcionario.matricula}" /></td>
-                    <td><c:out value="${funcionario.salario}" /></td>
+                    <td><c:out value="${f.id}" /></td>
+                    <td><c:out value="${f.nome}" /></td>
+                    <td><c:out value="${f.cpf}" /></td>
+                    <td><c:out value="${f.matricula}" /></td>
+                    <td><c:out value="${f.salario}" /></td>
                     <td>
-                        <a class="btn btn-secondary btn-sm" href="/CrudWebLivraria/Funcionarios/edit?id=<c:out value='${livro.id}' />">Editar</a>
+                        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=edit&id=<c:out value='${f.id}' />">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-secondary btn-sm" href="/CrudWebLivraria/Funcionarios/delete?id=<c:out value='${livro.id}' />">Deletar</a>                     
+                        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=delete&id=<c:out value='${f.id}' />">Deletar</a>                     
                     </td>
                 </tr>
             </c:forEach>

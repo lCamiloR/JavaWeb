@@ -15,22 +15,22 @@
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Crud Web Livraria</a>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
+                <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+                <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
+                <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+                <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar nova venda</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
             </span>
         </nav>
     </div>
@@ -44,9 +44,9 @@
                 <th>Autor</th>
                 <th>Editora</th>
                 <th>Edicao</th>
-                <th>Data de Lanï¿½amento</th>
-                <th>Preï¿½o</th>
-                <th>Aï¿½ï¿½es</th>
+                <th>Data de Lançamento</th>
+                <th>Preço</th>
+                <th>Ações</th>
             </tr>
             <c:forEach var="livro" items="${listaLivros}">
                 <tr>
@@ -59,9 +59,9 @@
                     <td><c:out value="${livro.dtLancamento}" /></td>
                     <td><c:out value="${livro.preco}" /></td>
                     <td>
-                        <a class="btn btn-secondary btn-sm" href="/CrudWebLivraria/Livros/edit?id=<c:out value='${livro.id}' />">Editar</a>
+                        <a href="/CrudWebLivraria/crud/Livros?operacao=edit&id=<c:out value='${livro.id}' />">Editar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-secondary btn-sm" href="/CrudWebLivraria/Livros/delete?id=<c:out value='${livro.id}' />">Deletar</a>                     
+                        <a href="/CrudWebLivraria/crud/Livros?operacao=delete&id=<c:out value='${livro.id}' />">Deletar</a>                     
                     </td>
                 </tr>
             </c:forEach>

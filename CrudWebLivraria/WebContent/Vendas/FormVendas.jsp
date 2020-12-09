@@ -10,47 +10,52 @@
     <title>CRUD Web Livraria</title>
 </head>
 <body>
-    <h1>Gerenciamento de Venda</h1>
+    <h1>Gerenciamento de Vendas</h1>
     <div>
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Crud Web Livraria</a>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
+                <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+                <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
+                <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+                <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar nova venda</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
             </span>
         </nav>
     </div>
-    
     <div class="container centro">
         <c:if test="${venda != null}">
-            <form action="update" method="post">
+            <form action="/CrudWebLivraria/crud/Vendas?operacao=update" method="post">
         </c:if>
         <c:if test="${venda == null}">
-            <form action="insert" method="post">
+            <form action="/CrudWebLivraria/crud/Vendas?operacao=insert" method="post">
         </c:if>
+        
+        <h3>
+          	<c:out value='${msgErro}' />
+       </h3>
+        
         <table class="table table-borderless">
             <caption>
                     <c:if test="${venda != null}">
-                        Editar livro
+                        Editar Venda
                     </c:if>
                     <c:if test="${venda == null}">
-                        Adicionar novo livro
+                        Adicionar nova venda
                     </c:if>
             </caption>
+
                 <c:if test="${venda != null}">
                     <input type="hidden" name="id" value="<c:out value='${venda.id}' />" />
                 </c:if>           
@@ -67,19 +72,11 @@
                 </td>
             </tr>
             <tr>
-                <th>Valor Total: </th>
-                <td>
-                    <input type="text" id="valorTotal" name="valorTotal" size="45"
-                            value=0
-                    />
-                </td>
-            </tr>
-            <tr>
                 <th>Descontos: </th>
                 <td>
-                    <input type="text" id="descontos" name="descontos" size="45"
+                    <input type="number" step=0.1 id="descontos" name="descontos" size="45"
                             value="<c:out value='${venda.descontos}' />"
-                        />
+                        />%
                 </td>
             </tr>
             <tr>
@@ -100,28 +97,105 @@
 						<option value=2>Banana</option>-->
 					</select>
 					 <input type="number" id = "quantia"/>
-		            <button id = "btAdicionarLivro">Adicionar Livro</button>
+		            <button type="button" id = "btAdicionarLivro">Adicionar Livro</button>
 	            </td>
 	        </tr>
             <tr>
                 <td colspan="2" align="center">
-                	<c:if test="${livros != null}">
-                		<c:if test="${funcionarios != null}">
-                    		<input type="submit" id="salvar" value="Salvar" />
+                	<c:if test="${!livros.isEmpty()}">
+                		<c:if test="${!funcionarios.isEmpty()}">
+                			<c:if test="${venda == null}">
+                    			<input type="submit" id="operacao" name="operacao" value="Salvar" />
+                   			</c:if>
+                   			<c:if test="${venda != null}">
+                    			<input type="submit" id="operacao" name="operacao" value="Atualizar" />
+                   			</c:if>
                     	</c:if>
                     </c:if>
-                    <c:if test="${livros == null}">
-                    	<h>Nï¿½o hï¿½ livro cadastrado no sistema. Favor cadastrar e tentar novamente.</h>
+                    <c:if test="${livros.isEmpty()}">
+                    	<h>Não há livro cadastrado no sistema. Favor cadastrar e tentar novamente.</h>
                     </c:if>
-                    <c:if test="${funcionarios != null}">
-                    	<h>Nï¿½o hï¿½ funcionario cadastrado no sistema. Favor cadastrar e tentar novamente.</h>
+                    <c:if test="${funcionarios.isEmpty()}">
+                    	<h>Não há funcionario cadastrado no sistema. Favor cadastrar e tentar novamente.</h>
                     </c:if>
                 </td>
             </tr>
         </table>
         </form>
-    </div>   
-    <script type="text/javascript" src = "../Javascript/FormVendasListaLivros.js"></script>
+    </div>  
+    <!-- type="text/javascript" src = "../Javascript/FormVendasListaLivros.js" --> 
+    <script >
+
+    document.getElementById("btAdicionarLivro").addEventListener("click", function (e){
+    	
+    	    e.preventDefault();
+    	    
+    	    var livroSelect = document.getElementById("livrosSelect");
+    	    var livroNome = livroSelect.options[livroSelect.selectedIndex].innerHTML;
+    	    var livroId = livroSelect.value;
+    	    var num =  document.getElementById("quantia").value;
+    	    
+    	    var table = document.getElementById("livrosTabela");
+    	    
+    	    var row = table.insertRow(-1);
+    	    
+    	    var cell1 = row.insertCell(0);
+    	    var cell2 = row.insertCell(1);
+    	    var cell3 = row.insertCell(2);
+    	    
+    	    var inputLivro = document.createElement("input");
+    	    inputLivro.type = "text";
+    	    inputLivro.value = livroNome;
+    	    inputLivro.disabled = true;
+    	    
+    	    var inputQuantia = document.createElement("input");
+    	    inputQuantia.type = "number";
+    	    inputQuantia.name = "quantia";
+    	    inputQuantia.value = num;
+    	    
+    	    var inputId = document.createElement("input");
+    	    inputId.type = "hidden";
+    	    inputId.name = "livro";
+    	    inputId.value = livroId;
+
+    		var indexSelect = document.createElement("input");
+    	    indexSelect.type = "hidden";
+    	    indexSelect.value = livroSelect.selectedIndex;
+
+    		var buttonDelete = document.createElement("button");
+    		buttonDelete.innerHTML = "Deletar";
+    		buttonDelete.addEventListener("click", function (x){
+    	    	x.preventDefault();
+
+    			var cell = x.target.parentElement;
+    			var rowIndex = cell.parentElement.rowIndex;
+    			var indexSelect = cell.children[1].value;
+    			
+    			var table = document.getElementById("livrosTabela");
+    			
+    			var livroSelect = document.getElementById("livrosSelect");
+    			var op = livroSelect.options[indexSelect];
+    			
+    			op.disabled = false;
+    			table.deleteRow(rowIndex);
+    			
+    		});
+    	    
+    	    cell1.appendChild(inputLivro);
+    	    cell2.appendChild(inputQuantia);
+    	    cell3.appendChild(inputId);
+    		cell3.appendChild(indexSelect);
+    		cell3.appendChild(buttonDelete);
+    		
+    		livroSelect.options[livroSelect.selectedIndex].disabled = true;
+    		livroSelect.selectedIndex = -1;
+    	}
+    );
+
+
+
+    
+    </script>
 </body>
 
 
