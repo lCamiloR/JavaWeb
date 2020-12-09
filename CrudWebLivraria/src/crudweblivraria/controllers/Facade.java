@@ -6,6 +6,7 @@ import crudweblivraria.interfaces.*;
 import crudweblivraria.model.domain.*;
 import crudweblivraria.dao.*;
 import crudweblivraria.negocio.*;
+import crudweblivraria.logs.*;
 
 public class Facade implements IFacadeCRUD {
 
@@ -15,10 +16,13 @@ public class Facade implements IFacadeCRUD {
 	
 	private Map<String, IViewModelStrategy> vms;
 	
+	private Map<String, ILogger> logs;
+	
 	public Facade() {
 		definirDAO();
 		definirStrategies();
 		definirViewModelStrategies();
+		definirLoggers();
 	}
 	
 	private void definirDAO() {
@@ -34,6 +38,7 @@ public class Facade implements IFacadeCRUD {
 		
 		List<IValidador> rnsFuncionario = new ArrayList<>();
 		rnsFuncionario.add(new ValidadorCpf());
+		rnsFuncionario.add(new ValidadorExistenciaCpf());
 		
 		List<IValidador> rnsLivro = new ArrayList<>();
 		rnsLivro.add(new ValidadorIsbn());
@@ -52,6 +57,15 @@ public class Facade implements IFacadeCRUD {
 		vms.put(Funcionario.class.getName(), new ViewModelFuncionario());
 		vms.put(Livro.class.getName(), new ViewModelLivro());
 		vms.put(Venda.class.getName(), new ViewModelVenda());
+	}
+	
+	private void definirLoggers() {
+		logs = new HashMap<>();
+		
+		logs.put(Funcionario.class.getName(), new FuncionarioLog());
+		logs.put(Livro.class.getName(), new LivroLog());
+		logs.put(Venda.class.getName(), new VendaLog());
+		
 	}
 	
 	private String executarRegras(EntidadeDominio e) {
