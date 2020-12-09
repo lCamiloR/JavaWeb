@@ -27,6 +27,8 @@ public class LivroLog implements ILogger {
 		str.append("\n");
 		
 		str.append("\n\n---------------------------------------------------\n");
+		
+		System.out.println(str.toString());
 	}
 
 }
