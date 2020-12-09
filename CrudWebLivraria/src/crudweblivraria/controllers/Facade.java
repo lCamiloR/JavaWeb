@@ -101,12 +101,17 @@ public class Facade implements IFacadeCRUD {
 	public String cadastrar(EntidadeDominio e) {
 		String nmClasse = e.getClass().getName();
 		IDAO dao = daos.get(nmClasse);
+		ILogger log = logs.get(nmClasse);
 		
 		String msg = executarRegras(e);
 		
 		if(msg.equals("")){
 			try {				
-				return dao.inserir(e);
+				msg = dao.inserir(e);
+				if(msg.equals("")) {
+					log.printLog(e);
+					return msg;
+				}
 			}catch(Exception ex){
 				System.out.println(ex);
 			}
