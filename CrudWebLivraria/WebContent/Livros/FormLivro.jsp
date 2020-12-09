@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
@@ -9,23 +10,31 @@
     <title>CRUD Web Livraria</title>
 </head>
 <body>
-    <h1>Gerenciamento de Livros</h1>
-    <h2>
-        <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
-        &nbsp;&nbsp;
-         
-    </h2>
-    <div align="center">
+    <div class="bg"></div>
+    <div>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">Crud Web Livraria</a>
+            <span class="navbar-text btn-light">
+                <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
+            </span>
+            <span class="navbar-text btn-light">
+                <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
+            </span>
+            <span class="navbar-text btn-light">
+                <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
+            </span>
+            <span class="navbar-text btn-light">
+                <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
+            </span>
+            <span class="navbar-text btn-light">
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
+            </span>
+            <span class="navbar-text btn-light">
+                <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
+            </span>
+        </nav>
+    </div>
+    <div class="container centro">
         <c:if test="${livro != null}">
             <form action="/CrudWebLivraria/crud/Livros?operacao=update" method="post">
         </c:if>
@@ -35,7 +44,7 @@
         <h3>
           	<c:out value='${msgErro}' />
 	    </h3>
-        <table border="1">
+        <table class="table table-borderless">
             <caption>
                     <c:if test="${livro != null}">
                         Editar livro

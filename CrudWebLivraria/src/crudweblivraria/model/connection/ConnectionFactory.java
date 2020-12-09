@@ -20,12 +20,10 @@ public class ConnectionFactory {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASS);
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível acessar a classe de Conexão.\nErro: " + ex.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Não foi possível acessar a classe de Conexão.\nErro: " + ex.getMessage());
             return null;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível acessar o banco de dados.\nErro: " + ex.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+        	 System.out.println("Não foi possível acessar o banco de dados.\nErro: " + ex.getMessage());
             return null;
         }
     }

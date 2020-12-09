@@ -17,7 +17,6 @@ public class VendasLivrosDAO{
 	private Connection jdbcConnection;
 	private LivroDAO livroDAO;
 	
-	@SuppressWarnings({ "rawtypes" })
 	public boolean inserir(EntidadeDominio ent) throws SQLException {
 		
 		this.jdbcConnection = ConnectionFactory.getMysqlConnection();

@@ -115,7 +115,7 @@
         </table>
         </form>
     </div>  
-    <!-- type="text/javascript" src = "../Javascript/FormVendasListaLivros.js" -->> 
+    <!-- type="text/javascript" src = "../Javascript/FormVendasListaLivros.js" --> 
     <script >
 
     document.getElementById("btAdicionarLivro").addEventListener("click", function (e){

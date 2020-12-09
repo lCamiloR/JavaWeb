@@ -11,23 +11,31 @@
 </head>
 <body>
     <h1>Gerenciamento de Livros</h1>
-    <h2>
-        <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
-        &nbsp;&nbsp;
-         
-    </h2>
-    <div align="center">
-        <table border="1">
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Crud Web Livraria</a>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
+            </span>
+        </nav>
+    </div>
+    <div class="container centro">
+        <table class="table table-hover table-bordered">
             <caption>Lista de Livros</caption>
             <tr>
                 <th>ID</th>

@@ -3,33 +3,40 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <link href="../css/mystyle.css" rel="stylesheet" type="text/css"/>
 <head>
     <title>CRUD Web Livraria</title>
 </head>
 <body>
     <h1>Gerenciamento de Funcionarios</h1>
     <h2>
-        <a href="/CrudWebLivraria/Livros/new">Adicionar novo livro</a>
+        <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Livros">Listar todos os livros</a>
+        <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Funcionarios/new">Adicionar novo funcionario</a>
+        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Funcionarios">Listar todos os funcionarios</a>
+        <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Vendas/new">Adicionar novo venda</a>
+        <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
         &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/Vendas">Listar todos os venda</a>
+        <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
         &nbsp;&nbsp;
          
     </h2>
     <div align="center">
         <c:if test="${funcionario != null}">
-            <form action="update" method="post">
+            <form action="/CrudWebLivraria/crud/Funcionarios?operacao=update" method="post">
         </c:if>
         <c:if test="${funcionario == null}">
-            <form action="insert" method="post">
+            <form action="/CrudWebLivraria/crud/Funcionarios?operacao=insert" method="post">
         </c:if>
+        
+        <h3>
+        	<c:out value='${msgErro}' />
+        </h3>
+        
         <table border="1">
             <caption>
                     <c:if test="${funcionario != null}">
@@ -39,6 +46,7 @@
                         Adicionar novo funcionario
                     </c:if>
             </caption>
+
                 <c:if test="${funcionario != null}">
                     <input type="hidden" name="id" value="<c:out value='${funcionario.id}' />" />
                 </c:if>           
@@ -53,7 +61,7 @@
             <tr>
                 <th>CPF: </th>
                 <td>
-                    <input type="text" id="cpf" name="cpf" size="45"
+                    <input type="number" id="cpf" name="cpf" size="45"
                             value="<c:out value='${funcionario.cpf}' />"
                     />
                 </td>
@@ -61,7 +69,7 @@
             <tr>
                 <th>Matricula: </th>
                 <td>
-                    <input type="text" id="matricula" name="matricula" size="5"
+                    <input type="number" id="matricula" name="matricula" size="5"
                             value="<c:out value='${funcionario.matricula}' />"
                     />
                 </td>
@@ -69,14 +77,19 @@
             <tr>
                 <th>Salario: </th>
                 <td>
-                    <input type="text"  id="salario" name="salario" size="5"
+                    <input type="number" step=0.01  id="salario" name="salario" size="5"
                             value="<c:out value='${funcionario.salario}' />"
                     />
                 </td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" id="salvar" value="Salvar" />
+                <c:if test="${funcionario == null}">
+                    <input type="submit" id="operacao" name="operacao" value="Salvar" />
+                </c:if>
+                <c:if test="${funcionario != null}">
+                    <input type="submit" id="operacao" name="operacao" value="Editar" />
+                </c:if>
                 </td>
             </tr>
         </table>
