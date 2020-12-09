@@ -10,26 +10,26 @@
     <title>CRUD Web Livraria</title>
 </head>
 <body>
-    <div class="bg"></div>
+	<h1>Gerenciamento de Livros</h1>
     <div>
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Crud Web Livraria</a>
-            <span class="navbar-text btn-light">
+            <span class="navbar-text btn-dark">
                 <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
             </span>
-            <span class="navbar-text btn-light">
+            <span class="navbar-text btn-dark">
                 <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
             </span>
-            <span class="navbar-text btn-light">
+            <span class="navbar-text btn-dark">
                 <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
             </span>
-            <span class="navbar-text btn-light">
+            <span class="navbar-text btn-dark">
                 <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
             </span>
-            <span class="navbar-text btn-light">
-                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar nova venda</a>
             </span>
-            <span class="navbar-text btn-light">
+            <span class="navbar-text btn-dark">
                 <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
             </span>
         </nav>
@@ -60,7 +60,7 @@
             <tr>
                 <th>ISBN: </th>
                 <td>
-                    <input type="number" id="isbn" name="isbn" size="45"
+                    <input type="number" min="0" id="isbn" name="isbn" size="45"
                             value="<c:out value='${livro.isbn}' />"
                         />
                 </td>
@@ -92,7 +92,7 @@
             <tr>
                 <th>Edição: </th>
                 <td>
-                    <input type="number" id="edicao" name="edicao" size="5"
+                    <input type="number" min="0" id="edicao" name="edicao" size="5"
                             value="<c:out value='${livro.edicao}' />"
                     />
                 </td>
@@ -108,7 +108,7 @@
             <tr>
                 <th>Preço: </th>
                 <td>
-                    <input type="number" step=0.01 id="preco" name="preco" size="5"
+                    <input type="number" min="0" step=0.01 id="preco" name="preco" size="5"
                             value="<c:out value='${livro.preco}' />"
                     />
                 </td>

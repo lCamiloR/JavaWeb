@@ -27,7 +27,7 @@
                 <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
             </span>
             <span class="navbar-text btn-dark">
-                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar nova venda</a>
             </span>
             <span class="navbar-text btn-dark">
                 <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>

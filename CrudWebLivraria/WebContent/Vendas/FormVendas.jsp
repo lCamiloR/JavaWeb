@@ -10,23 +10,31 @@
     <title>CRUD Web Livraria</title>
 </head>
 <body>
-    <h1>Gerenciamento de Venda</h1>
-    <h2>
-        <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar novo venda</a>
-        &nbsp;&nbsp;
-        <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
-        &nbsp;&nbsp;
-         
-    </h2>
-    <div align="center">
+    <h1>Gerenciamento de Vendas</h1>
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Crud Web Livraria</a>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Livros?operacao=new">Adicionar novo livro</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Livros">Listar todos os livros</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Funcionarios?operacao=new">Adicionar novo funcionario</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Funcionarios">Listar todos os funcionarios</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Vendas?operacao=new">Adicionar nova venda</a>
+            </span>
+            <span class="navbar-text btn-dark">
+                <a href="/CrudWebLivraria/crud/Vendas">Listar todos os venda</a>
+            </span>
+        </nav>
+    </div>
+    <div class="container centro">
         <c:if test="${venda != null}">
             <form action="/CrudWebLivraria/crud/Vendas?operacao=update" method="post">
         </c:if>
@@ -38,7 +46,7 @@
           	<c:out value='${msgErro}' />
        </h3>
         
-        <table border="1">
+        <table class="table table-borderless">
             <caption>
                     <c:if test="${venda != null}">
                         Editar Venda
@@ -94,8 +102,8 @@
 	        </tr>
             <tr>
                 <td colspan="2" align="center">
-                	<c:if test="${livros != null}">
-                		<c:if test="${funcionarios != null}">
+                	<c:if test="${!livros.isEmpty()}">
+                		<c:if test="${!funcionarios.isEmpty()}">
                 			<c:if test="${venda == null}">
                     			<input type="submit" id="operacao" name="operacao" value="Salvar" />
                    			</c:if>
@@ -104,10 +112,10 @@
                    			</c:if>
                     	</c:if>
                     </c:if>
-                    <c:if test="${livros == null}">
+                    <c:if test="${livros.isEmpty()}">
                     	<h>Não há livro cadastrado no sistema. Favor cadastrar e tentar novamente.</h>
                     </c:if>
-                    <c:if test="${funcionarios == null}">
+                    <c:if test="${funcionarios.isEmpty()}">
                     	<h>Não há funcionario cadastrado no sistema. Favor cadastrar e tentar novamente.</h>
                     </c:if>
                 </td>
